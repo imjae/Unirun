@@ -64,11 +64,16 @@ public class PlayerController : MonoBehaviour {
 
         // 속도를 제로(0, 0) 으로 변경
         playerRigidbody.velocity = Vector2.zero;
+        playerRigidbody.AddForce(Vector2.up * 1000f);
         // 사망상태를 true로 변경
         isDead = true;
+
+        // 게임 매니저의 게임오버 처리 실행
+        GameManager.instance.OnPlayerDead();
    }
 
    private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log(other.tag);
        // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
        if(other.tag == "Dead" && !isDead)
         {
